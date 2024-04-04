@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  order_date: 2024-04-04 10:58:35
+  shipping_address: MyString
+  shipping_city: MyString
+  shipping_state: MyString
+  shipping_country: MyString
+  shipping_postcode: MyString
+  user: one
+  status: one
+  tax_rate: one
+
+two:
+  order_date: 2024-04-04 10:58:35
+  shipping_address: MyString
+  shipping_city: MyString
+  shipping_state: MyString
+  shipping_country: MyString
+  shipping_postcode: MyString
+  user: two
+  status: two
+  tax_rate: two

@@ -12,12 +12,10 @@ gem "sprockets-rails"
 gem "sqlite3", "~> 1.4"
 
 # Use mysql as the database for Active Record
-# gem "mysql2", ">= 0.5.3", "< 0.7.0"
+gem "mysql2", ">= 0.5.3", "< 0.7.0"
 
-# Use SCSS for stylesheets [https://sass-lang.com/documentation/syntax]
-gem "sass-rails"
-
-
+# Use dotenv to load environment variables from .env into ENV in development
+gem "dotenv-rails"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
