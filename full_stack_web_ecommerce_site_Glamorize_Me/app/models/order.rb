@@ -11,7 +11,6 @@ class Order < ApplicationRecord
   validates :status_id, presence: true
   validates :tax_rate_id, presence: true
   validates :order_date, presence: true
-  validates :shipping_date, presence: true
   validates :shipping_address, presence: true
   validates :shipping_city, presence: true
   validates :shipping_state, presence: true

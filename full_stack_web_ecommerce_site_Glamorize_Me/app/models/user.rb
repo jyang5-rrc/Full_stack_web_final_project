@@ -6,7 +6,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }
   validates :age, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
   validates :gender, presence: true
-  validates :default_shipping_address, presence: true
+  validates :default_address, presence: true
   validates :default_country, presence: true
   validates :default_city, presence: true
   validates :default_postcode, presence: true
