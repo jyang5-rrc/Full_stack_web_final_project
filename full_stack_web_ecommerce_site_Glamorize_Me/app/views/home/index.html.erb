@@ -1,0 +1,75 @@
+<main class="container mt-5 pb-5" id="main">
+  <section id="recommended-products" class="mb-5">
+    <!-- Recommended Products will go here -->
+    <section id="recommended-products" class="mb-5">
+      <h2>Recommended Products</h2>
+      <div class="row mt-3">
+        <% @recommended_products.each do |product| %>
+          <div class="col-md-4 col-lg-3 mb-4">
+            <div class="card h-100">
+              <%= image_tag product.image_link, class: "card-img-top", alt: product.product_name %>
+              <div class="card-body">
+                <h5 class="card-title"><%= product.product_name %></h5>
+                <p class="card-text">$<%= product.price %></p>
+                <p class="card-text">Rating: <%= product.rating %></p>
+                <%= link_to 'View', product_path(product), class: 'btn btn-primary btn-view' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </section>
+
+  </section>
+
+  <section id="categories-section" class="mb-5">
+    <h2>Categories</h2>
+    <div class="mt-1 d-flex justify-content-center">
+        <%= link_to 'All Categories', categories_path, class: 'text-dark p-2' %>
+    </div>
+    <div class="row mt-3">
+        <% @categories.each do |category| %>
+            <div class="col-md-2 mb-3">
+                <div class="p-2 bg-light d-flex justify-content-center align-items-center">
+                    <%= link_to category.category_name, show_products_category_path(category), class: 'text-dark text-decoration-none' %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+  </section>
+
+  <section id="brands" class="mb-5">
+    <!-- Brands will go here -->
+    <h2>Brands</h2>
+    <div class="mt-1 d-flex justify-content-center">
+        <%= link_to 'All Brands', brands_path, class: 'text-dark p-2' %>
+    </div>
+    <div class="row mt-3">
+        <% @brands.each do |brand| %>
+            <div class="col-md-2 mb-3">
+                <div class="p-2 bg-light d-flex justify-content-center align-items-center">
+                    <%= link_to brand.brand_name, show_products_brand_path(brand), class: 'text-dark text-decoration-none' %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+  </section>
+
+  <section id="product-types">
+    <!-- Product Types will go here -->
+    <h2>Product Types</h2>
+    <div class="mt-1 d-flex justify-content-center">
+        <%= link_to 'All types', product_types_path, class: 'text-dark p-2' %>
+    </div>
+    <div class="row mt-3">
+        <% @product_types.each do |product_type| %>
+            <div class="col-md-2 mb-3">
+                <div class="p-2 bg-light d-flex justify-content-center align-items-center">
+                    <%= link_to product_type.product_type_name, show_products_product_type_path(product_type), class: 'text-dark text-decoration-none' %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+  </section>
+</main>
+

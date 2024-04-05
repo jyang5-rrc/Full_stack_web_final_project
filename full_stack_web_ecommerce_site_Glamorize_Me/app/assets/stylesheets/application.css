@@ -13,3 +13,66 @@
  *= require_tree .
  *= require_self
  */
+ #main h2{
+  text-align: center;
+  color: #848484;
+  font: sans-serif;
+  font-size: 2em;
+}
+
+
+#recommended-products .card-img-top {
+  height: 200px; /* Adjust as needed */
+  width: auto;
+  object-fit: contain;
+}
+
+#recommended-products .btn-view {
+  display: inline-block;
+  background-color: #029e58;
+  color: white;
+  padding: 6px 12px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+}
+
+#recommended-products .btn-view:hover {
+  background-color: white;
+  color: black;
+  border: 1px solid #007bff;
+}
+
+body {
+  padding-top: 200px; /* Adjust based on the actual height of your header */
+}
+
+
+#category .btn-sm{
+  background-color: #029e58;
+}
+
+
+.pagination-container .pagination {
+  padding: .5rem 1rem; /* Adjust padding as needed */
+  margin-left: 2px; /* Space between buttons */
+}
+
+.pagination-container .pagination .page-item.active .page-link {
+  z-index: 1;
+  color: #fff;
+  background-color: #029e58;
+  border-color: #029e58;
+}
+
+.pagination-container .pagination .page-link {
+  z-index: 1;
+  color: #029e58;
+  background-color: #fff;
+  border: 1px solid #029e58;
+}

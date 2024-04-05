@@ -1,0 +1,43 @@
+<header class="fixed-top" >
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container-fluid"> <!-- Changed to container-fluid for full width -->
+      <a class="navbar-brand" href="#">
+        <%= image_tag 'logo.png', alt: 'Logo', class: 'img-fluid'%> <!-- Adjusted logo size -->
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav", >
+        <ul class="navbar-nav me-auto"> <!-- me-auto to align search form to the right -->
+          <li class="nav-item">
+            <%= link_to 'Home', root_path, class: 'nav-link ' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Category', categories_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Brand', brands_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Product Type', product_types_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'About', about_path, class: 'nav-link' %>
+          </li>
+        </ul>
+        <form class="d-flex" method="get" action="<%= search_path %>">
+          <input class="form-control me-2" type="search" name="search" placeholder="Search products" aria-label="Search">
+          <select class="form-select me-2" name="search_option">
+            <option value="product">Product name</option>
+            <option value="category">Category</option>
+            <option value="brand">Brand</option>
+            <option value="product_type">Product Type</option>
+            <option value="product_tag">Product Tag</option>
+          </select>
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+</header>
