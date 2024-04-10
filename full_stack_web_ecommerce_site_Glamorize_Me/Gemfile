@@ -26,6 +26,16 @@ gem "bcrypt", "~> 3.1.7"
 # Use kaminari for pagination
 gem "kaminari"
 
+# Use activeadmin for admin interface
+gem 'activeadmin'
+
+# Plus optionally:
+gem 'devise'
+
+# Use sassc for stylesheets
+gem 'sassc'
+
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 

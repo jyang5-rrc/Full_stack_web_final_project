@@ -27,7 +27,7 @@ end
 end
 
 # Create Brands
-5.times do
+50.times do
   Brand.create!(brand_name: Faker::Company.unique.name)
 end
 
@@ -73,17 +73,20 @@ end
 end
 
 # Create Products
-# Create Products
-10.times do
+100.times do
+  # Use specific keywords related to makeup for product names
+  makeup_keywords = ['Lipstick', 'Foundation', 'Eyeliner', 'Mascara', 'Blush', 'Eyeshadow', 'Concealer']
+  product_name_keyword = makeup_keywords.sample
+
   product = Product.create!(
-    product_name: Faker::Commerce.product_name,
+    product_name: "#{product_name_keyword} #{Faker::Commerce.color} #{Faker::Commerce.material}",
     brand_id: Brand.order(Arel.sql('RAND()')).first.id,
-    price: Faker::Commerce.price(range: 0..100.0),
-    image_link: "https://loremflickr.com/640/480/makeup?lock=#{rand(1..1000)}",
+    price: Faker::Commerce.price(range: 5..100.0),  # Adjust price range if needed
+    image_link: "https://loremflickr.com/640/480/#{product_name_keyword.downcase}?lock=#{rand(1..1000)}",
     description: Faker::Lorem.sentence(word_count: 10),
     rating: rand(1.0..5.0).round(1),
     category_id: Category.order(Arel.sql('RAND()')).first.id,
-    product_type_id: ProductType.order(Arel.sql('RAND()')).first.id
+    product_type_id: ProductType.where(product_type_name: 'Makeup').order(Arel.sql('RAND()')).first.id
   )
 
   # Create ProductTags
@@ -134,3 +137,10 @@ end
 end
 
 puts 'Seed data successfully populated!'
+
+Administrator.create!(
+  name: 'Admin Name',
+  email: 'admin@example.com',
+  password: 'securepassword', # Ensure this is securely generated or set
+  role_id: 1
+)

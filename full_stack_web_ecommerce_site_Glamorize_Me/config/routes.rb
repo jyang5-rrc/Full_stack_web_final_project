@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :administrators, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   root 'home#index'
   get 'home', to: 'home#index'
   get 'about', to: 'static_pages#about'
