@@ -17,5 +17,10 @@ class Order < ApplicationRecord
   validates :shipping_country, presence: true
   validates :shipping_postcode, presence: true
 
+  def self.ransackable_attributes(auth_object = nil)
+    # List of attributes you want to be searchable
+    # Ensure you exclude sensitive information like user passwords or tokens
+    ["created_at", "id", "order_date", "shipping_address", "shipping_city", "shipping_country", "shipping_postcode", "shipping_state", "status_id", "tax_rate_id", "updated_at", "user_id"]
+  end
 
 end
