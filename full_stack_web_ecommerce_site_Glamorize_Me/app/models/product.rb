@@ -31,4 +31,32 @@ class Product < ApplicationRecord
 
     end
   end
+
+  # Define searchable associations for Ransack
+  def self.ransackable_attributes(auth_object = nil)
+    # List of attributes you want to be searchable
+    # Exclude sensitive attributes to prevent unauthorized search access
+    ["product_name", "price", "description", "rating", "created_at", "brand_id", "category_id", "product_type_id"]
+  end
+
+  # Define searchable associations for Ransack
+  def self.ransackable_associations(auth_object = nil)
+    # List the associations you want to be searchable.
+    # Exclude any associations that could lead to sensitive information being exposed.
+    ["brand", "category", "product_type", "product_tag"] # Adjust this list based on your actual associations
+  end
+
+  # Ransacker to search products by category name
+  ransacker :category_name, formatter: proc { |v|
+    Category.where("name ILIKE ?", "%#{v}%").pluck(:id)
+  } do |parent|
+    parent.table[:category_id]
+  end
+
+  ransacker :product_type_name, formatter: proc { |v|
+    ProductType.where("name ILIKE ?", "%#{v}%").pluck(:id)
+  } do |parent|
+    parent.table[:product_type_id]
+  end
+
 end

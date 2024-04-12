@@ -14,5 +14,8 @@ ActiveAdmin.register Category do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  
+
+  filter :products_name_cont, as: 'string'  # This allows filtering categories based on the names of their products
+
+
 end
