@@ -13,8 +13,12 @@ class Administrator < ApplicationRecord
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }
 
-  def self.ransackable_attributes(auth_object = nil)
-       # Exclude sensitive attributes like 'encrypted_password' and 'reset_password_token'
-       %w[id name email role_id created_at updated_at]
-     end
+       def self.ransackable_attributes(auth_object = nil)
+              # Exclude sensitive attributes like 'encrypted_password' and 'reset_password_token'
+              %w[id name email role_id created_at updated_at]
+       end
+       def self.ransackable_associations(auth_object = nil)
+              # Exclude any associations you don't want to be searchable
+              %w[role]
+       end
 end
