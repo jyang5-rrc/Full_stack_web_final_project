@@ -16,4 +16,21 @@ class User < ApplicationRecord
  # validates :default_payment_method, presence: true
 
   has_secure_password
+
+  # Define searchable associations for Ransack
+  def self.ransackable_attributes(auth_object = nil)
+    # List of attributes you want to be searchable
+    # Exclude sensitive attributes to prevent unauthorized search access
+    ["email", "id", "id_value", "name", "age", "gender", "default_address", "default_city", "default_country", "default_postcode", "default_state"]
+
+  end
+
+  # Define searchable associations for Ransack
+  def self.ransackable_associations(auth_object = nil)
+    # List the associations you want to be searchable.
+    # Exclude any associations that could lead to sensitive information being exposed.
+    ["orders"] # Adjust this list based on your actual associations
+  end
+
+
 end
