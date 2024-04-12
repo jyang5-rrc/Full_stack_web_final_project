@@ -1,0 +1,40 @@
+
+<%= form_for :static_page, url: admin_staticpages_save_path, method: :post do |f| %>
+  <!-- Security token for form submission -->
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+  <div class="panel">
+    <h3>Edit About Page</h3>
+    <div class="panel_contents">
+      <%= f.label :page_name, 'Page' %>
+      <%= f.hidden_field :page_name, value: 'about' %>
+
+      <%= f.label :content, 'Content' %>
+      <%= f.text_area :content, value: File.read(Rails.root.join('app', 'views', 'static_pages', 'about.html.erb')), rows: 20 %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Save About Page', class: 'button' %>
+  </div>
+<% end %>
+
+<%= form_for :static_page, url: admin_staticpages_save_path, method: :post do |f| %>
+  <!-- Security token for form submission -->
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+  <div class="panel">
+    <h3>Edit Contact Page</h3>
+    <div class="panel_contents">
+      <%= f.label :page_name, 'Page' %>
+      <%= f.hidden_field :page_name, value: 'contact' %>
+
+      <%= f.label :content, 'Content' %>
+      <%= f.text_area :content, value: File.read(Rails.root.join('app', 'views', 'static_pages', 'contact.html.erb')), rows: 20 %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Save Contact Page', class: 'button' %>
+  </div>
+<% end %>

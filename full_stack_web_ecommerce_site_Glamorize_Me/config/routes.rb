@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root 'home#index'
   get 'home', to: 'home#index'
   get 'about', to: 'static_pages#about'
+  get 'contact', to: 'static_pages#contact'
   get 'categories', to: 'categories#categories', as: 'categories'
   get 'brands', to: 'brands#brands', as: 'brands'
   get 'product_tpyes', to: 'product_types#product_types', as: 'product_types'

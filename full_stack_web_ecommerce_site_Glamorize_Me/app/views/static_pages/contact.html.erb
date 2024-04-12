@@ -1,0 +1,35 @@
+<div class="container mt-5 pb-5">
+  <h1 class="mb-4">Contact Us</h1>
+  <p class="mb-4">If you have any questions, please fill out the form below, and we will get back to you as soon as possible.</p>
+
+  <%= form_with url: contact_path, local: true, html: { class: 'needs-validation', novalidate: '' } do |form| %>
+
+    <div class="mb-3">
+      <%= form.label :name, class: 'form-label' %>
+      <%= form.text_field :name, class: 'form-control', required: true %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :email, class: 'form-label' %>
+      <%= form.email_field :email, class: 'form-control', required: true %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :subject, class: 'form-label' %>
+      <%= form.text_field :subject, class: 'form-control', required: true %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :message, class: 'form-label' %>
+      <%= form.text_area :message, class: 'form-control', rows: 4, required: true %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.submit 'Send Message', class: 'btn btn-primary' %>
+    </div>
+
+  <% end %>
+
+  <p>You can also reach us by phone at (123) 456-7890 or by email at contact@example.com.</p>
+</div>
+
