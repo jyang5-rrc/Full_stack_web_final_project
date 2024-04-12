@@ -35,6 +35,8 @@ gem 'devise'
 # Use sassc for stylesheets
 gem 'sassc'
 
+# Use country_select for country dropdown
+gem 'country_select'
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
