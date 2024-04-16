@@ -1,25 +1,79 @@
 <main class="container mt-5 pb-5" id="main">
+
   <section id="recommended-products" class="mb-5">
-    <!-- Recommended Products will go here -->
-    <section id="recommended-products" class="mb-5">
-      <h2>Recommended Products</h2>
-      <div class="row mt-3">
-        <% @recommended_products.each do |product| %>
-          <div class="col-md-4 col-lg-3 mb-4">
-            <div class="card h-100">
+    <h2>Recommended Hot Products</h2>
+    <div class="row mt-3">
+      <% @recommended_products.each do |product| %>
+        <div class="col-md-4 col-lg-3 mb-4">
+          <div class="card h-100">
+            <% if product.image.attached? %>
+              <%= image_tag url_for(product.image), class: "card-img-top", alt: product.product_name %>
+            <% elsif product.image_link.present? %>
               <%= image_tag product.image_link, class: "card-img-top", alt: product.product_name %>
-              <div class="card-body">
-                <h5 class="card-title"><%= product.product_name %></h5>
-                <p class="card-text">$<%= product.price %></p>
-                <p class="card-text">Rating: <%= product.rating %></p>
-                <%= link_to 'View', product_path(product), class: 'btn btn-primary btn-view' %>
-              </div>
+            <% else %>
+              <%= content_tag(:span, "No image available") %>
+            <% end %>
+
+            <div class="card-body">
+              <h5 class="card-title"><%= product.product_name %></h5>
+              <p class="card-text">$<%= product.price %></p>
+              <p class="card-text">Rating: <%= product.rating %></p>
+              <%= link_to 'View', product_path(product), class: 'btn btn-primary btn-view' %>
             </div>
           </div>
-        <% end %>
-      </div>
-    </section>
+        </div>
+      <% end %>
+    </div>
+  </section>
 
+   <section id="recommended-products" class="mb-5">
+    <h2>New Products</h2>
+    <div class="row mt-3">
+      <% @new_products.each do |product| %>
+        <div class="col-md-4 col-lg-3 mb-4">
+          <div class="card h-100">
+            <% if product.image.attached? %>
+              <%= image_tag url_for(product.image), class: "card-img-top", alt: product.product_name %>
+            <% elsif product.image_link.present? %>
+              <%= image_tag product.image_link, class: "card-img-top", alt: product.product_name %>
+            <% else %>
+              <%= content_tag(:span, "No image available") %>
+            <% end %>
+            <div class="card-body">
+              <h5 class="card-title"><%= product.product_name %></h5>
+              <p class="card-text">$<%= product.price %></p>
+              <p class="card-text">Rating: <%= product.rating %></p>
+              <%= link_to 'View', product_path(product), class: 'btn btn-primary btn-view' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+  <section id="recommended-products" class="mb-5">
+    <h2>Recently updated Products</h2>
+    <div class="row mt-3">
+      <% @recently_updated_products.each do |product| %>
+        <div class="col-md-4 col-lg-3 mb-4">
+          <div class="card h-100">
+            <% if product.image.attached? %>
+              <%= image_tag url_for(product.image), class: "card-img-top", alt: product.product_name %>
+            <% elsif product.image_link.present? %>
+              <%= image_tag product.image_link, class: "card-img-top", alt: product.product_name %>
+            <% else %>
+              <%= content_tag(:span, "No image available") %>
+            <% end %>
+            <div class="card-body">
+              <h5 class="card-title"><%= product.product_name %></h5>
+              <p class="card-text">$<%= product.price %></p>
+              <p class="card-text">Rating: <%= product.rating %></p>
+              <%= link_to 'View', product_path(product), class: 'btn btn-primary btn-view' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </section>
 
   <section id="categories-section" class="mb-5">

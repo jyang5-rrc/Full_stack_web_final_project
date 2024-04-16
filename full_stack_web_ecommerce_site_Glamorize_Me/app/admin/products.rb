@@ -38,6 +38,7 @@ ActiveAdmin.register Product do
       product.tags.map { |tag| tag.tag_name }.join(", ").html_safe # Display tags as a comma-separated list,from table product_tags
     end
     column :created_at
+    column :updated_at
 
     actions
   end
@@ -96,6 +97,7 @@ ActiveAdmin.register Product do
         product.tags.map { |tag| tag.tag_name }.join(", ").html_safe
       end
       row :created_at
+      row :updated_at
     end
   end
 

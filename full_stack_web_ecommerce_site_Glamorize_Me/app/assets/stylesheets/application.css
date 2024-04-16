@@ -76,3 +76,14 @@ body {
   background-color: #fff;
   border: 1px solid #029e58;
 }
+
+
+.card-img-top {
+  width: 100%;   /* makes the image responsive */
+  max-width: 300px; /* maximum width */
+  height: auto; /* maintain aspect ratio */
+  height: auto;
+  margin-left: auto;  /* center the image horizontally */
+  margin-right: auto; /* center the image horizontally */
+
+}

@@ -2,14 +2,16 @@
   <div class="row">
     <div class="col-md-8 offset-md-2">
       <h1 class="mb-3"><%= @product.product_name %></h1>
+      <h6 class="mb-3">Product id: #<%= @product.id %></h6>
       <div class="card">
-        <% if product.image.attached? %>
-          <img src="<%= @product.image %>" class="card-img-top img-fluid" alt="<%= @product.product_name %>">
-        <% elsif product.image_link.present? %>
-          <img src="<%= @product.image_link %>" class="card-img-top img-fluid" alt="<%= @product.product_name %>">
-        <% else %>
-          <%= content_tag(:span, "No image available") %>
-        <% end %>
+      <% if @product.image.attached? %>
+        <%= image_tag url_for(@product.image), class: "card-img-top", alt: @product.product_name %>
+      <% elsif @product.image_link.present? %>
+        <%= image_tag @product.image_link, class: "card-img-top", alt: @product.product_name %>
+      <% else %>
+        <%= content_tag(:span, "No image available") %>
+      <% end %>
+
         <div class="card-body">
           <h5 class="card-title"><%= @product.product_name %></h5>
           <p class="card-text"><strong>Price:</strong> $<%= @product.price %></p>
