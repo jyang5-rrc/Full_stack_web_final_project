@@ -5,6 +5,6 @@ class BrandsController < ApplicationController
 
   def show_products
     @brand = Brand.find(params[:id])
-    @products = @brand.products
+    @products = @brand.products.page(params[:page]).per(10)  # Display 10 products per page
   end
 end

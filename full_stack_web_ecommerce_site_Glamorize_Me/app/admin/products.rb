@@ -15,7 +15,7 @@ ActiveAdmin.register Product do
   #   permitted
   # end
 
-  permit_params :product_name, :brand_id, :price, :image_link, :description, :rating, :category_id, :product_type_id, :image
+  permit_params :product_name, :brand_id, :price, :image_link, :description, :rating, :category_id, :product_type_id, :image, tag_ids: []
 
   index do
     selectable_column

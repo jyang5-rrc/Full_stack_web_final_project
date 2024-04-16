@@ -38,4 +38,7 @@
   <% else %>
     <p>No products found for this category</p>
   <% end %>
+  <div class="pagination-container d-flex justify-content-center my-4">
+    <%= paginate @products, class: 'pagination' %>
+  </div>
 </div>
