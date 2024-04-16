@@ -15,7 +15,7 @@ ActiveAdmin.register Product do
   #   permitted
   # end
 
-  permit_params :product_name, :brand_id, :price, :image_link, :description, :rating, :category_id, :product_type_id
+  permit_params :product_name, :brand_id, :price, :image_link, :description, :rating, :category_id, :product_type_id, :image
 
   index do
     selectable_column
@@ -56,6 +56,7 @@ ActiveAdmin.register Product do
   form do |f|
     f.inputs do
       f.input :product_name
+      f.input :image, as: :file, hint: f.object.image.attached? ? image_tag(f.object.image, size: "150x150") : content_tag(:span, "Upload an image")
       f.input :brand, as: :select, collection: Brand.all.map { |brand| [brand.brand_name, brand.id] }
       f.input :price
       f.input :image_link
@@ -72,6 +73,13 @@ ActiveAdmin.register Product do
   show do |product|
     attributes_table do
       row :product_name
+      row :image do |product|
+        if product.image.attached?
+          image_tag product.image, size: "150x150"
+        else
+          content_tag(:span, "No image available")
+        end
+      end
       row :brand do |product|
         product.brand.brand_name if product.brand
       end

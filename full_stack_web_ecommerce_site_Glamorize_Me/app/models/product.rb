@@ -9,6 +9,8 @@ class Product < ApplicationRecord
   has_many :product_tags
   has_many :tags, through: :product_tags
 
+  has_one_attached :image
+
   validates :product_name, presence: true
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :description, length: { maximum: 1000 }
