@@ -73,8 +73,7 @@ ActiveAdmin.register Product do
   show do |product|
     attributes_table do
       row :product_name
-      row :image do |product|
-        if product.image.attached?
+      row :image do |product| if product.image.attached?
           image_tag product.image, size: "150x150"
         else
           content_tag(:span, "No image available")
