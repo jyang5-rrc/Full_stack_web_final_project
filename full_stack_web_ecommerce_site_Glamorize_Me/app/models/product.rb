@@ -20,6 +20,8 @@ class Product < ApplicationRecord
   def self.search(term, search_option)
     if term.present?
       case search_option
+      when 'all'
+        where('product_name LIKE ? OR description LIKE ?', "%#{term}%", "%#{term}%")
       when 'product'
         where('product_name LIKE ?', "%#{term}%")
       when 'category'

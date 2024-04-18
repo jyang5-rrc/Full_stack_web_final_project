@@ -13,6 +13,12 @@
  *= require_tree .
  *= require_self
  */
+ .logo {
+  width: 80px; /* Set the width as desired */
+  height: auto; /* Maintain aspect ratio */
+}
+
+
  #main h2{
   text-align: center;
   color: #848484;
@@ -49,7 +55,7 @@
 }
 
 body {
-  padding-top: 200px; /* Adjust based on the actual height of your header */
+  padding-top: 150px; /* Adjust based on the actual height of your header */
 }
 
 
