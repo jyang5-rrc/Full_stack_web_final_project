@@ -1,4 +1,8 @@
 ActiveAdmin.register Administrator do
+  controller do
+    before_action :authenticate_administrator!
+  end
+
   permit_params :email, :role_id, :password, :password_confirmation
 
   index do
