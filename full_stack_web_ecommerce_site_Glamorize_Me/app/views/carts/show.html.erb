@@ -1,0 +1,9 @@
+<!-- app/views/carts/show.html.erb -->
+<h1>Your Shopping Cart</h1>
+<% @cart_items.each do |cart_item| %>
+  <p>
+    <%= cart_item.product.name %>: <%= cart_item.quantity %>
+    <!-- Add functionality to change quantity or remove from cart -->
+  </p>
+<% end %>
+<!-- Total price and checkout button -->

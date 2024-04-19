@@ -2,8 +2,10 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :timeoutable
   has_many :orders
+
+  has_one :cart, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 100 }
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
@@ -18,8 +20,6 @@ class User < ApplicationRecord
   #validates :default_phone, presence: true
   #validates :default_email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
  # validates :default_payment_method, presence: true
-
-  has_secure_password
 
   # Define searchable associations for Ransack
   def self.ransackable_attributes(auth_object = nil)

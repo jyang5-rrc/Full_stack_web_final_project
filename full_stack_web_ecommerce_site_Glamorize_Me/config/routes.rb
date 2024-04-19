@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
+
+  root 'home#index'
+  get 'home', to: 'home#index'
+
   devise_for :users
   devise_for :administrators, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  root 'home#index'
-  get 'home', to: 'home#index'
+
+
   get 'about', to: 'static_pages#about'
   get 'contact', to: 'static_pages#contact'
   get 'categories', to: 'categories#categories', as: 'categories'
@@ -31,6 +35,10 @@ Rails.application.routes.draw do
       get :show_products
     end
   end
+
+
+  resource :cart, only: [:show]
+  resources :cart_items, only: [:create, :update, :destroy]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

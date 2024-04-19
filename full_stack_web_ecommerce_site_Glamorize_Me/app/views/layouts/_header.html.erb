@@ -1,15 +1,15 @@
-<header class="fixed-top" >
-
+<header class="fixed-top">
   <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-    <div class="container-fluid"> <!-- Changed to container-fluid for full width -->
-      <a class="navbar-brand" href="#">
-        <%= image_tag 'logo.jpg', alt: 'Logo', class: 'img-fluid logo' %> <!-- Adjusted logo size -->
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <div class="container-fluid">
+      <%= link_to root_path, class: "navbar-brand" do %>
+        <%= image_tag 'logo.jpg', alt: 'Logo', class: 'img-fluid logo' %>
+      <% end %>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav", >
-        <ul class="navbar-nav me-auto"> <!-- me-auto to align search form to the right -->
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <!-- Navigation links -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <%= link_to 'Home', root_path, class: 'nav-link ' %>
           </li>
@@ -29,9 +29,11 @@
             <%= link_to 'Contact Us', contact_path, class: 'nav-link' %>
           </li>
         </ul>
+
+        <!-- Search form -->
         <form class="d-flex" method="get" action="<%= search_path %>">
-          <input class="form-control me-2" type="search" name="search" placeholder="Search products" aria-label="Search">
-          <select class="form-select me-2" name="search_option">
+          <input class="form-control me-2 flex-grow-1" type="search" name="search" placeholder="Search products" aria-label="Search" style="max-width: none;">
+          <select class="form-select me-2" name="search_option" style="width: auto;">
             <option value="all">All</option>
             <option value="product">Product name</option>
             <option value="category">Category</option>
@@ -41,7 +43,39 @@
           </select>
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
+
+
+        <!-- User links -->
+        <ul class="navbar-nav ">
+          <% if user_signed_in? %>
+            <li class="nav-item">
+              <%= link_to '#', class: 'btn btn-primary', data: { bs_toggle: 'modal', bs_target: '#shoppingCartModal' } do %>
+                <i class="fas fa-shopping-cart"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  <%= current_cart.total_items %>
+                  <span class="visually-hidden">items in cart</span>
+                </span>
+              <% end %>
+
+            </li>
+            <li class="nav-item ">
+              <%= button_to 'Logout', destroy_user_session_path, method: :delete, form: { class: 'logout-form' }, class: 'logout-link' %>
+
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to 'Sign up', new_user_registration_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Log in', new_user_session_path, class: 'nav-link' %>
+            </li>
+          <% end %>
+        </ul>
+
+
+
       </div>
     </div>
   </nav>
+
 </header>

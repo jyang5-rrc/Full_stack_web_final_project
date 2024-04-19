@@ -18,6 +18,27 @@
   height: auto; /* Maintain aspect ratio */
 }
 
+/* Add this to your application.css or equivalent stylesheet */
+.logout-form button.logout-link {
+  background: none!important;
+  color: inherit;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+  box-shadow: none!important; /* This removes any box-shadow */
+}
+
+.logout-form button.logout-link:hover,
+.logout-form button.logout-link:focus {
+  background: none!important;
+  box-shadow: none!important; /* Make sure to remove shadow on hover and focus */
+  text-decoration: underline;
+  color: #385898; /* Or any color you want */
+}
+
+
 
  #main h2{
   text-align: center;
