@@ -1,0 +1,11 @@
+<% if current_cart.cart_items.any? %>
+  <% cart_items_grouped_by_product = current_cart.cart_items.group_by(&:product) %>
+  <% cart_items_grouped_by_product.each do |product, cart_items| %>
+    <p>
+      <%= product.product_name %> x <%= cart_items.sum(&:quantity) %>
+      <!-- Add buttons or links for changing quantity or removing items -->
+    </p>
+  <% end %>
+<% else %>
+  <p>Your cart is empty.</p>
+<% end %>
