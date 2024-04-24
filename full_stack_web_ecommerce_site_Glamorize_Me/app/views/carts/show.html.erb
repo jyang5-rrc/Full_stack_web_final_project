@@ -1,15 +1,162 @@
-<!-- app/views/carts/show.html.erb -->
-<h1>Your Shopping Cart</h1>
-<% @cart_items.each do |cart_item| %>
-  <% if cart_item.product.present? %>
-    <p>
-      <%= cart_item.product.product_name %>: <%= cart_item.quantity %>
-      <!-- Add functionality to change quantity or remove from cart -->
-      <%= button_to 'Remove', cart_item_path(cart_item), method: :delete %>
-    </p>
+<div class="container mt-5 mb-5">
+  <h1 class="mb-4">Your Shopping Cart</h1>
+
+  <% if @cart_items.any? %>
+    <div class="row mb-3">
+      <div class="col">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Product</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Price</th>
+              <th scope="col">Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @cart_items.group_by(&:product).each do |product, items| %>
+
+              <tr id="cart-item-<%= items.first.id %>">
+                <td><%= product.product_name %></td>
+                <td>
+                  <%= form_with model: items.first, url: cart_item_path(items.first), method: :patch, remote: true, html: { class: 'update-cart-item', data: { controller: 'cart', action: 'change->cart#update' } } do |f| %>
+                    <div class="input-group">
+                      <%= button_tag '-', class: 'btn btn-secondary decrease-qty', type: 'button', data: { cart_item_id: items.first.id } %>
+                      <%= f.number_field :quantity, value: items.sum(&:quantity), min: 1, class: 'form-control quantity-field', id: "quantity-#{items.first.id}" %>
+                      <%= button_tag '+', class: 'btn btn-secondary increase-qty', type: 'button', data: { cart_item_id: items.first.id } %>
+                    </div>
+                    <%= f.hidden_field :product_id, value: product.id %>
+                  <% end %>
+
+                </td>
+                <td id="product-total-<%= product.id %>"><%= number_to_currency(product.price * items.sum(&:quantity)) %></td>
+                <td>
+                  <%= link_to 'Remove', cart_item_path(items.first), method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <p id="cart-total">Total: <%= number_to_currency(@cart.total_price) %></p>
+      </div>
+    </div>
   <% else %>
-    <p>Product no longer available.</p>
+    <p>Your cart is empty.</p>
   <% end %>
 
-<% end %>
-<!-- Total price and checkout button -->
+
+  <%= form_for @order do |f| %>
+    <% if current_user && current_user.default_address.present? %>
+      <div class="form-check mb-3">
+        <%= f.check_box :use_default_address, class: 'form-check-input', id: 'use_default_address' %>
+        <%= label_tag 'use_default_address', 'Use default address', class: 'form-check-label' %>
+      </div>
+      <div id="default-address">
+        <p><%= current_user.default_address %>, <%= current_user.default_city %>, <%= current_user.default_state %>, <%= current_user.default_country %>,<%= current_user.default_postcode %></p>
+      </div>
+    <% end %>
+
+    <div id="new-address-fields" <%= current_user && current_user.default_address.present? ? 'style="display: none;"' : '' %>>
+      <div class="mb-3 pt-4">
+        <%= f.label :shipping_address, 'Shipping Address' %>
+        <%= f.text_field :shipping_address, class: 'form-control' %>
+      </div>
+      <!-- Add similar fields for city, state, country, and postal code -->
+      <div class="mb-3">
+        <%= f.label :shipping_city, 'Shipping City' %>
+        <%= f.text_field :shipping_city, class: 'form-control' %>
+      </div>
+      <div class="mb-3">
+        <%= f.label :shipping_state, 'Shipping State' %>
+        <%= f.text_field :shipping_state, class: 'form-control' %>
+      </div>
+      <div class="mb-3">
+        <%= f.label :shipping_country, 'Shipping Country' %>
+        <%= f.text_field :shipping_country, class: 'form-control' %>
+      </div>
+      <div class="mb-3">
+        <%= f.label :shipping_postcode, 'Shipping Post Code' %>
+        <%= f.text_field :shipping_postcode, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= link_to 'Proceed to Checkout', new_order_path, class: 'btn btn-primary grey ' %>
+    </div>
+  <% end %>
+</div>
+
+<!-- Include jQuery or your preferred way to handle the DOM manipulation -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var useDefaultAddressCheckbox = document.getElementById('use_default_address');
+    var defaultAddressDiv = document.getElementById('default-address');
+    var newAddressFields = document.getElementById('new-address-fields');
+
+    // Function to toggle visibility of new address fields based on checkbox state
+    function toggleAddressFields() {
+      if (useDefaultAddressCheckbox.checked) {
+        newAddressFields.style.display = 'none';
+        defaultAddressDiv.style.display = 'block';
+      } else {
+        newAddressFields.style.display = 'block';
+        defaultAddressDiv.style.display = 'none';
+      }
+    }
+
+    // Initially call the toggle function to set the correct visibility
+    toggleAddressFields();
+
+    // Add event listener to checkbox for dynamic visibility change
+    useDefaultAddressCheckbox.addEventListener('change', toggleAddressFields);
+  });
+
+  // Ensure this runs when the document is fully loaded
+  $(document).ready(function() {
+    // Handles increment of the quantity
+    $('.increase-qty').on('click', function() {
+      let cartItemId = $(this).data('cart-item-id');
+      let quantityField = $('#quantity-' + cartItemId);
+      let newQuantity = parseInt(quantityField.val()) + 1;
+      quantityField.val(newQuantity);
+      quantityField.closest('form').submit();
+    });
+
+    // Handles decrement of the quantity
+    $('.decrease-qty').on('click', function() {
+      let cartItemId = $(this).data('cart-item-id');
+      let quantityField = $('#quantity-' + cartItemId);
+      let newQuantity = parseInt(quantityField.val()) - 1;
+      if(newQuantity >= 1) {
+        quantityField.val(newQuantity);
+        quantityField.closest('form').submit();
+      }
+    });
+
+    // AJAX call when the form is submitted (triggered by quantity change)
+    $(document).on('submit', 'form.update-cart-item', function(event) {
+      event.preventDefault();
+      var form = $(this);
+      $.ajax({
+        url: form.attr('action'),
+        type: 'PATCH',
+        data: form.serialize(),
+        dataType: 'json',
+        success: function(data) {
+          // Update product total
+          $(`#product-total-${data.product_id}`).text(`$${data.product_total}`);
+
+          // Update cart total
+          $('#cart-total').text(`Total: $${data.cart_total}`);
+        },
+        error: function(xhr, status, error) {
+          alert("An error occurred while updating the cart: " + error);
+        }
+      });
+    });
+  });
+</script>

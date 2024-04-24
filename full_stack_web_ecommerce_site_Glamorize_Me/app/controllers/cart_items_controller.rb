@@ -40,36 +40,23 @@ class CartItemsController < ApplicationController
     respond_to do |format|
       if @cart_item.update(cart_item_params)
         format.html { redirect_to cart_items_path, notice: 'Cart item was successfully updated.' }
-        format.json { render json: @cart_item }
-        format.js   # This will look for a file called `update.js.erb` in `app/views/cart_items/`
+        format.json do
+          cart = current_user.cart # Assuming current_user represents the logged-in user
+          cart_total = cart.total_price # Calculate the total cart price
+          render json: {
+            product_id: @cart_item.product_id,
+            product_total: @cart_item.product.price * @cart_item.quantity,
+            cart_total: cart_total
+          }
+        end
+        format.js # This will look for a file called `update.js.erb` in your `views/cart_items` directory
+
       else
         format.html { render :edit }
         format.json { render json: @cart_item.errors, status: :unprocessable_entity }
-        format.js   { render layout: false, content_type: 'text/javascript' }
       end
     end
   end
-
-
-
-  # PATCH/PUT /cart_items/:id
-# def update
-#   update_params = cart_item_params.merge(user_id: current_user.id)
-#   if @cart_item.update(update_params)
-#     new_price = @cart_item.calculate_price
-#     total_price = CartItem.calculate_total_price(@cart.cart_items)
-#     cart_count = @cart.cart_items.count
-#     render json: {
-#       new_price: new_price,
-#       total_price: total_price,
-#       cart_count: cart_count,
-#       cart_html: render_to_string(partial: 'layouts/cart_items_list')
-#     }
-#   else
-#     render json: { error: @cart_item.errors.full_messages.to_sentence }, status: :unprocessable_entity
-#   end
-# end
-
 
 
   # DELETE /cart_items/:id

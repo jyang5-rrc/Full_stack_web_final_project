@@ -1,21 +1,12 @@
 class CartsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_cart_and_items, only: [:show, :empty_cart, :checkout, :destroy]
+
   def show
     @cart = find_or_initialize_cart
     @cart_items = @cart.cart_items
+    @order = Order.new
   end
-
-  private # private methods are only accessible within the class they are defined in
-
-  def find_or_initialize_cart
-    if current_user.cart
-      current_user.cart
-    else
-      cart = Cart.create(user_id: current_user.id)
-      current_user.cart = cart
-      cart
-    end
-  end
-
 
 
   def add_to_cart
@@ -72,5 +63,16 @@ class CartsController < ApplicationController
     redirect_to cart_path
   end
 
+  private
+
+  def set_cart_and_items
+    @cart = find_or_initialize_cart
+    @cart_items = @cart.cart_items
+    @order = Order.new
+  end
+
+  def find_or_initialize_cart
+    current_user.cart || current_user.create_cart
+  end
 
 end
