@@ -46,20 +46,25 @@
 
 
         <!-- User links -->
-        <ul class="navbar-nav ">
+        <ul class="navbar-nav">
           <% if user_signed_in? %>
             <li class="nav-item">
-              <%= link_to '#', class: 'btn btn-primary', data: { bs_toggle: 'modal', bs_target: '#shoppingCartModal' } do %>
+              <%= link_to '#', class: 'nav-link position-relative', data: { bs_toggle: 'modal', bs_target: '#shoppingCartModal' } do %>
                 <i class="fas fa-shopping-cart"></i>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-item-count">
                   <%= current_cart.total_items %>
                   <span class="visually-hidden">items in cart</span>
                 </span>
               <% end %>
 
+
+
             </li>
             <li class="nav-item ">
-              <%= button_to 'Logout', destroy_user_session_path, method: :delete, form: { class: 'logout-form' }, class: 'logout-link' %>
+              <%= button_to destroy_user_session_path, method: :delete, form: { class: 'logout-form' }, class: 'logout-link btn btn-danger' do %>
+                <i class="fas fa-sign-out-alt"></i>
+              <% end %>
+
 
             </li>
           <% else %>

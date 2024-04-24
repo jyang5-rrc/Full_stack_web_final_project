@@ -1,9 +1,15 @@
 <!-- app/views/carts/show.html.erb -->
 <h1>Your Shopping Cart</h1>
 <% @cart_items.each do |cart_item| %>
-  <p>
-    <%= cart_item.product.name %>: <%= cart_item.quantity %>
-    <!-- Add functionality to change quantity or remove from cart -->
-  </p>
+  <% if cart_item.product.present? %>
+    <p>
+      <%= cart_item.product.product_name %>: <%= cart_item.quantity %>
+      <!-- Add functionality to change quantity or remove from cart -->
+      <%= button_to 'Remove', cart_item_path(cart_item), method: :delete %>
+    </p>
+  <% else %>
+    <p>Product no longer available.</p>
+  <% end %>
+
 <% end %>
 <!-- Total price and checkout button -->

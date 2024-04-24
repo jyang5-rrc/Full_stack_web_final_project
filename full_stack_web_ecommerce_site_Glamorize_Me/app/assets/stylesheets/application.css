@@ -13,6 +13,9 @@
  *= require_tree .
  *= require_self
  */
+
+ @import "bootstrap";
+
  .logo {
   width: 80px; /* Set the width as desired */
   height: auto; /* Maintain aspect ratio */
@@ -28,6 +31,8 @@
   font: inherit;
   cursor: pointer;
   box-shadow: none!important; /* This removes any box-shadow */
+  padding-left: 15px; /* Add padding as needed */
+  padding-top: 8px;
 }
 
 .logout-form button.logout-link:hover,
@@ -35,7 +40,7 @@
   background: none!important;
   box-shadow: none!important; /* Make sure to remove shadow on hover and focus */
   text-decoration: underline;
-  color: #385898; /* Or any color you want */
+  color: #535353; /* Or any color you want */
 }
 
 

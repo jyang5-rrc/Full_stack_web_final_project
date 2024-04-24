@@ -1,0 +1,14 @@
+<% if @cart_item.errors.any? %>
+  alert('Error updating cart item: <%= j @cart_item.errors.full_messages.join(", ") %>');
+<% else %>
+  // Assuming you have an element like this for each cart item's price
+  $("#cart-item-price-<%= @cart_item.id %>").html('<%= j number_to_currency(@cart_item.calculate_price) %>');
+
+  // Update the total price displayed
+  $("#total-price").html('<%= j number_to_currency(CartItem.calculate_total_price(current_user.cart.cart_items)) %>');
+
+  // Optional: if you want to refresh the entire cart item list
+  $('#shoppingCartModal .modal-body').html('<%= j render partial: "layouts/cart_items_list", locals: { current_cart: current_cart } %>');
+
+<% end %>
+

@@ -1,3 +1,4 @@
+
 <div class="modal fade" id="shoppingCartModal" tabindex="-1" aria-labelledby="shoppingCartModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
@@ -8,14 +9,7 @@
       </div>
       <!-- Modal body -->
       <div class="modal-body">
-        <% if current_cart.cart_items.any? %>
-          <% current_cart.cart_items.each do |cart_item| %>
-            <p><%= cart_item.product.name %> x <%= cart_item.quantity %></p>
-            <!-- Add buttons or links for changing quantity or removing items -->
-          <% end %>
-        <% else %>
-          <p>Your cart is empty.</p>
-        <% end %>
+        <%= render 'layouts/cart_items_list', current_cart: current_cart %>
       </div>
       <!-- Modal footer -->
       <div class="modal-footer">
@@ -25,3 +19,4 @@
     </div>
   </div>
 </div>
+

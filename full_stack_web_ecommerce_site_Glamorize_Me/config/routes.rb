@@ -37,8 +37,16 @@ Rails.application.routes.draw do
   end
 
 
-  resource :cart, only: [:show]
+  resource :cart, only: [:show, :update, :destroy]
   resources :cart_items, only: [:create, :update, :destroy]
+
+  resources :cart_items do
+    collection do
+      delete 'remove_product/:product_id', to: 'cart_items#remove_product', as: 'remove_product'
+    end
+  end
+
+  resources :orders
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

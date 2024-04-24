@@ -21,7 +21,8 @@ class ApplicationController < ActionController::Base
 
   def after_sign_up_path_for(resource)
     flash[:success] = 'Sign up successful. Please log in.'
-    new_user_session_path # Or any other path
+    # new_user_session_path # Or any other path
+    root_path # Always redirects to the home page after login
   end
 
 
@@ -39,4 +40,20 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  before_action :initialize_cart
+
+  private
+
+  def initialize_cart
+    if user_signed_in?
+      @current_cart = current_user.cart || current_user.create_cart
+    else
+      begin
+        @current_cart = Cart.find(session[:cart_id])
+      rescue ActiveRecord::RecordNotFound
+        @current_cart = Cart.create
+        session[:cart_id] = @current_cart.id
+      end
+    end
+  end
 end

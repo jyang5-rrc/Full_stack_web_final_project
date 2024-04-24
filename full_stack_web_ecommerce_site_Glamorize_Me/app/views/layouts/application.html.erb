@@ -7,12 +7,14 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <!-- Stimulus Core Library -->
+    <script src="https://unpkg.com/@hotwired/stimulus"></script>
+    <!-- Application JavaScript -->
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
     <!-- Bootstrap 5 CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
   </head>
 
   <body>
@@ -27,27 +29,32 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <script>
-          // When the DOM is fully loaded
-          document.addEventListener('DOMContentLoaded', function() {
-            // Set a timeout to hide the flash message after 3000ms (3 seconds)
-            setTimeout(function() {
-              var flashMessage = document.getElementById('flash_message');
-              if (flashMessage) flashMessage.style.display = 'none';
-            }, 3000);
-          });
-        </script>
+
       <% end %>
-
-
     </div>
 
     <%= yield %>
     <%= render 'layouts/footer' %>
-
-
     <%= render 'layouts/cart_modal' %>
+
+
     <!-- Bootstrap 5 JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- jQuery Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Script for Flash Messages... -->
+    <script>
+      // When the DOM is fully loaded
+      document.addEventListener('DOMContentLoaded', function() {
+        // Set a timeout to hide the flash message after 3000ms (3 seconds)
+        setTimeout(function() {
+          var flashMessage = document.getElementById('flash_message');
+          if (flashMessage) flashMessage.style.display = 'none';
+        }, 3000);
+      });
+    </script>
+
   </body>
 </html>

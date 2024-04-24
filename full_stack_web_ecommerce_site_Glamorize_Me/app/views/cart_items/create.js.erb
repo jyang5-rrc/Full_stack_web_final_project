@@ -1,0 +1,9 @@
+// Update the cart icon and count
+$('#cart-item-count').text('<%= current_cart.total_items %>');
+$('#cart-item-count').attr('aria-label', '<%= current_cart.total_items %> items in cart');
+
+// Update the modal content if it's open
+if ($('#shoppingCartModal').hasClass('show')) {
+  $('.modal-body').html('<%= j render(partial: "layouts/cart_items_list", locals: { current_cart: current_cart }) %>');
+}
+

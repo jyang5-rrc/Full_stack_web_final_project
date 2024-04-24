@@ -1,0 +1,23 @@
+<% if @cart_item.destroyed? %>
+  // Alert for successful removal
+  alert('Item successfully removed from cart.');
+
+  // Remove the row for the deleted item from the table
+  var row = document.getElementById('cart-item-<%= @cart_item.id %>');
+  row.remove();
+
+  // Update the cart total price display
+  document.getElementById('cart-total').textContent = 'Total: <%= number_to_currency(current_user.cart.total_price) %>';
+
+  // Update the cart item count in the header
+  document.getElementById('cart-item-count').innerHTML = '<%= current_cart.total_items %>' + '<span class="visually-hidden">items in cart</span>';
+
+  // Update the path to the partial to reflect its location under 'layouts'
+  $('#shoppingCartModal .modal-body').html('<%= j render partial: "layouts/cart_items_list", locals: { current_cart: current_cart } %>');
+
+
+<% else %>
+  alert('Failed to remove item.');
+<% end %>
+
+

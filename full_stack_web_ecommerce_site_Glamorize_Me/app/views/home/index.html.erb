@@ -19,6 +19,13 @@
               <p class="card-text">$<%= product.price %></p>
               <p class="card-text">Rating: <%= product.rating %></p>
               <%= link_to 'View', product_path(product), class: 'btn btn-primary btn-view' %>
+              <!-- Shopping Cart Add Button -->
+              <%= button_to cart_items_path, method: :post, class: 'btn btn-success' do %>
+                <i class="fas fa-cart-plus"></i> Add to Cart
+                <%= hidden_field_tag 'cart_item[quantity]', 1 %>
+                <%= hidden_field_tag 'cart_item[product_id]', product.id %>
+              <% end %>
+
             </div>
           </div>
         </div>
@@ -44,6 +51,15 @@
               <p class="card-text">$<%= product.price %></p>
               <p class="card-text">Rating: <%= product.rating %></p>
               <%= link_to 'View', product_path(product), class: 'btn btn-primary btn-view' %>
+              <!-- Shopping Cart Add Button -->
+              <%= button_to cart_items_path, method: :post, class: 'btn btn-success', remote: true, data: { product_id: product.id } do %>
+                <i class="fas fa-cart-plus"></i> Add to Cart
+                <input type="hidden" name="product_id" value="<%= product.id %>">
+
+              <% end %>
+
+
+
             </div>
           </div>
         </div>
@@ -69,6 +85,12 @@
               <p class="card-text">$<%= product.price %></p>
               <p class="card-text">Rating: <%= product.rating %></p>
               <%= link_to 'View', product_path(product), class: 'btn btn-primary btn-view' %>
+              <!-- Shopping Cart Add Button -->
+              <%= button_to cart_items_path, method: :post, class: 'btn btn-success' do %>
+                <i class="fas fa-cart-plus"></i> Add to Cart
+                <%= hidden_field_tag 'cart_item[quantity]', 1 %>
+                <%= hidden_field_tag 'cart_item[product_id]', product.id %>
+              <% end %>
             </div>
           </div>
         </div>

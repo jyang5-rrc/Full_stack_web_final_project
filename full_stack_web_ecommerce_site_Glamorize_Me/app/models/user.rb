@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :timeoutable
   has_many :orders
+  has_many :cart_items
+
 
   has_one :cart, dependent: :destroy
 
@@ -20,6 +22,16 @@ class User < ApplicationRecord
   #validates :default_phone, presence: true
   #validates :default_email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
  # validates :default_payment_method, presence: true
+
+  after_create :initialize_cart
+
+  private
+
+  def initialize_cart
+    create_cart
+  end
+
+
 
   # Define searchable associations for Ransack
   def self.ransackable_attributes(auth_object = nil)
