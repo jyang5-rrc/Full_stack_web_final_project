@@ -119,3 +119,35 @@ body {
   margin-right: auto; /* center the image horizontally */
 
 }
+
+.btn.btn-primary {
+  background-color: grey;  /* Grey background */
+  color: white;            /* White text */
+  border-color: grey;      /* Grey border, if needed */
+  text-decoration: none;   /* Remove underline */
+}
+
+.btn.btn-primary:hover {
+  background-color: #029e58; /* Green background on hover */
+  color: white;              /* White text on hover */
+  border-color: #029e58;     /* Green border on hover */
+}
+
+
+
+/* For Webkit browsers like Chrome, Safari, and Opera */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* For IE10+ */
+input[type="number"]::-ms-clear {
+  display: none;
+}
