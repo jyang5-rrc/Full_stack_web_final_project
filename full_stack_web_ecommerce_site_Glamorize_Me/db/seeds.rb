@@ -16,6 +16,19 @@
   Role.find_or_create_by!(name: role_name)
 end
 
+
+# Add Manitoba tax rates
+TaxRate.create(
+  country: 'CA',
+  state: 'Manitoba',
+  city: '', # Assuming city is not required; otherwise, provide a value
+  pst: 7.00, # Example Provincial Sales Tax rate for Manitoba
+  gst: 5.00, # Example Goods and Services Tax rate for Canada
+  hst: 0.00  # Harmonized Sales Tax is not applicable in Manitoba
+)
+
+# Remember to run `rails db:seed` after updating seeds.rb to load the data into your database.
+
 # Create Tax Rates
 5.times do
   TaxRate.create!(
