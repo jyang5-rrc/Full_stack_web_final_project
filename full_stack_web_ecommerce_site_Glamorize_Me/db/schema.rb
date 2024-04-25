@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_23_222906) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_24_045538) do
   create_table "active_admin_comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -202,9 +202,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_222906) do
     t.string "country"
     t.string "state"
     t.string "city"
-    t.decimal "tax_rate", precision: 2, scale: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "pst", precision: 5, scale: 2
+    t.decimal "gst", precision: 5, scale: 2
+    t.decimal "hst", precision: 5, scale: 2
   end
 
   create_table "trackings", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

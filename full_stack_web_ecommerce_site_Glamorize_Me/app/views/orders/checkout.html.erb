@@ -1,0 +1,35 @@
+<!-- app/views/orders/checkout.html.erb -->
+<h1>Checkout Confirmation</h1>
+
+<section>
+    <h2>Order Summary</h2>
+    <ul>
+        <% @order.order_products.includes(:product).each do |order_product| %>
+            <li><%= order_product.product.name %> - Quantity: <%= order_product.quantity %> at <%= number_to_currency(order_product.price_at_time_of_order) %> each</li>
+        <% end %>
+        <p>Total Items Cost: <%= number_to_currency(@order.order_products.sum(&:price_at_time_of_order)) %></p>
+    </ul>
+</section>
+
+<section>
+    <h2>Shipping Details</h2>
+    <p>Name: <%= @order.user.name %></p>
+    <p>Address: <%= @order.shipping_address %></p>
+    <p>City: <%= @order.shipping_city %>, <%= @order.shipping_state %></p>
+    <p>Country: <%= @order.shipping_country %> - <%= @order.shipping_postcode %></p>
+</section>
+
+<section>
+    <h2>Total Cost</h2>
+    <%# Assuming you have methods to calculate subtotal, taxes, and total in your Order model %>
+    <p>Subtotal: <%= number_to_currency(@order.subtotal) %></p>
+    <p>Tax: <%= number_to_currency(@order.tax_total) %></p>
+    <p>Total: <%= number_to_currency(@order.final_total) %></p>
+</section>
+
+<%= form_for @order do |f| %>
+    <%= f.hidden_field :status, value: 'confirmed' %>
+    <%= f.submit 'Confirm Order', class: 'btn btn-primary' %>
+<% end %>
+
+

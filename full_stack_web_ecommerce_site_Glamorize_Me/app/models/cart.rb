@@ -28,5 +28,9 @@ class Cart < ApplicationRecord
     cart_items.to_a.sum(&:total_price)
   end
 
+  def clear
+    cart_items.destroy_all
+  end
+
 
 end

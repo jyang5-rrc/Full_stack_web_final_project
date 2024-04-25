@@ -18,10 +18,13 @@ Rails.application.routes.draw do
 
   # define routes for the categories controller that are nested under the categories resource
   # /categories/:id/show_products
+  # resources :categories do
+  #   member do
+  #     get 'show_products'
+  #   end
+  # end
   resources :categories do
-    member do
-      get 'show_products'
-    end
+    get 'show_products', on: :member
   end
 
   resources :brands do
@@ -46,7 +49,16 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :orders
+  resources :orders do
+    member do
+      get :checkout
+    end
+  end
+
+
+
+
+
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
