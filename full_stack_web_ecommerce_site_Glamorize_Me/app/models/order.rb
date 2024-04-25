@@ -26,4 +26,24 @@ class Order < ApplicationRecord
     ["created_at", "id", "order_date", "shipping_address", "shipping_city", "shipping_country", "shipping_postcode", "shipping_state", "status_id", "tax_rate_id", "updated_at", "user_id"]
   end
 
+  def subtotal
+    order_products.sum { |op| op.quantity * op.price_at_time_of_order }
+  end
+
+  def tax_total
+    # Fetch the tax rate from the related TaxRate model
+    current_tax_rate = self.tax_rate
+
+    # Calculate total tax based on the applicable tax rates
+    pst_total = subtotal * current_tax_rate.pst
+    gst_total = subtotal * current_tax_rate.gst
+    hst_total = subtotal * current_tax_rate.hst
+
+    pst_total + gst_total + hst_total
+  end
+
+  def final_total
+    subtotal + tax_total
+  end
+
 end
